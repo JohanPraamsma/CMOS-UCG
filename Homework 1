@@ -1,0 +1,68 @@
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+v = []
+t = []
+m = 68.1
+g = 9.81
+c = 12.5
+
+#Analytical Result
+for i in range(14):
+    Vt = ((g*m)/c)*(1-math.exp(-(c/m)*i))
+    t.append(i)
+    v.append(Vt)
+plt.plot(t,v)
+
+#Accuracy dt = 2
+v1 = []
+t1 = []
+def vt(v0,m,g,c):
+    for t in range(0,14,2):
+        v = v0 + (g-(c/m)*v0)*(2)
+        v0 = v
+        t1.append(t)
+        v1.append(v)
+vt(0,m,g,c)
+plt.scatter(t1,v1)
+plt.plot(t1,v1)
+
+#Accuracy dt = 1
+v2 = []
+t2 = []
+def vt(v0,m,g,c):
+    for t in range(0,14,1):
+        v = v0 + (g-(c/m)*v0)*(1)
+        v0 = v
+        t2.append(t)
+        v2.append(v)
+vt(0,m,g,c)
+plt.scatter(t2,v2)
+plt.plot(t2,v2)
+
+#Accuracy dt = 0,2
+v3 = []
+t3 = []
+def vt(v0,m,g,c):
+    for t in range(0,70,1):
+        v = v0 + (g-(c/m)*v0)*(0.2)
+        v0 = v
+        t3.append(t/5)
+        v3.append(v)
+vt(0,m,g,c)
+plt.scatter(t3,v3)
+plt.plot(t3,v3)
+
+#Accuracy dt = 0,1
+v4 = []
+t4 = []
+def vt(v0,m,g,c):
+    for t in range(0,140,1):
+        v = v0 + (g-(c/m)*v0)*(0.1)
+        v0 = v
+        t4.append(t/10)
+        v4.append(v)
+vt(0,m,g,c)
+plt.scatter(t4,v4)
+plt.plot(t4,v4)
