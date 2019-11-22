@@ -1,0 +1,24 @@
+from math import exp
+
+def fd(x):
+    return (-exp(-x)-1)
+def f(x):
+    return exp(-x)-x
+
+
+def fixpt(x0, es, imax):
+    xr = x0
+    itr = 0
+    for i in range(imax):
+        xrold = xr
+        xr = xrold - f(xrold)/(fd(xrold))
+        itr = itr + 1
+        if xr != 0:
+            ea = abs((xr-xrold)/xr)*100
+        elif ea < es:
+            break
+        elif itr >= imax:
+            break
+    return xr
+
+fixpt(0, 2, 3)
