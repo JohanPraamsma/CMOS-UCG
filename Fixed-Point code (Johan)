@@ -18,3 +18,28 @@ def fixPoint(x0, es, Imax):
     return xr
 
 fixPoint(10,10,10)
+
+# fixed Point with derivative function
+
+from math import exp
+
+def g(c):
+  return exp(-c)
+def gd(c):
+  return (-(exp(-c))-1)
+
+
+def fixPoint(x0, es, Imax):
+    xr = x0
+    Iter = 0
+    for i in range(20):
+        xrold = xr
+        xr = xrold - ((g(xrold)-xrold)/gd(xrold))
+        Iter = Iter + 1
+        if xr != 0:
+            ea = abs(((xr-xrold)/xr))*100
+        if ea < es or Iter >= Imax:
+            break
+    return xr
+
+fixPoint(0,10,4)
