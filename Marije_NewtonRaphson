@@ -1,0 +1,21 @@
+import math 
+
+def g(x):
+   return math.exp(-x) - x
+
+def gd(x):
+    return -math.exp(-x) - 1
+    #derivative 
+
+def fixedPoint(x, xs):
+ 
+   for i in range(30):
+     x_old = x
+     x = x_old - g(x)/gd(x)
+     error = abs(x - x_old)
+     if error < xs:
+      break
+     print('New Root', x, 'error', error)
+
+
+fixedPoint(0, 0.04)
