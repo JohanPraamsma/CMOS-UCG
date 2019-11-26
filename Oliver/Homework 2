@@ -1,0 +1,22 @@
+def function(x):
+    return x**5 + 1
+
+def root_bisection(xu, xl, error):
+    ec = 100
+    if function(xu) * function(xl) > 0:
+        return print("That's a bad guess.")
+    else:
+        while ec > error:
+            xn = (xu + xl)/2
+            value = function(xn)
+            if function(xl) * value < 0:
+                ec = (xu - xn)/xn * 100
+                xu = xn
+            elif function(xu) * value < 0:
+                ec = (xl - xn)/xn * 100
+                xl = xn
+            else:
+                ec = 0
+        return xn
+    
+root_bisection(0, -2, 10)
