@@ -1,0 +1,22 @@
+
+from math import exp
+
+def function(x):
+    return 668.06/x * (1 - exp(-0.146843*x)) - 40
+
+def root_fpmethod(xu, xl, error):
+    ec = 100
+    while error < ec:
+        xn = xu - ((function(xu)*(xl - xu))/(function(xl) - function(xu)))
+        value = function(xn)
+        if value * function(xl) < 0:
+            ec = (xu - xn)/xn * 100
+            xu = xn
+        elif value * function(xl) > 0:
+            ec = (xl - xn)/xn * 100
+            xl = xn
+        else:
+            ec = 0
+    return xn
+
+root_fpmethod(14, 16, 10)
