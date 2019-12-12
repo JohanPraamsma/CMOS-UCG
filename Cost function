@@ -1,0 +1,51 @@
+def F(x, y, a, b, c):
+    n = len(y)
+    f = 0.5*np.sum((y-a*x**2-b*x-c)**2)/n
+    return f
+
+F(x, y, 2, -1, 1)
+
+
+def dF(x, y, a, b, c):
+    n = len(y)
+    f = y - (a*x**2 + b*x + c)
+    d_a = f * (-x**2)
+    d_b = f * (-x)
+    d_c = -f
+        
+    return np.sum(d_a)/n, np.sum(d_b)/n, np.sum(d_c)/n
+
+#print(dF(x, y, 2.0, -1., 1.))
+
+
+
+#check derivate:
+
+check_a = (F(x, y, 2.001, -1., 1.) - F(x, y, 2.0, -1., 1.)) / 0.001
+check_b = (F(x, y, 2., -0.999, 1.) - F(x, y, 2.0, -1., 1.)) / 0.001
+check_c = (F(x, y, 2., -1., 1.001) - F(x, y, 2.0, -1., 1.0)) / 0.001
+
+#print(check_a)
+#print(check_b)
+#print(check_c)
+
+
+def GD(x, y, a, b, c, n):
+    d = 0.0001
+    cost=[]
+    num=[]
+    #df = dF(x,y,a,b)
+    for i in range(n):
+        cost.append(F(x, y, a, b, c))
+        num.append(i)
+
+        df = dF(x, y, a, b, c)
+        a = a - d * df[0]
+        b = b - d * df[1]
+        c = c - d * df[2]
+    
+    return (a, b, c, cost, num)
+    
+a,b,c,cost,num = GD(x, y, 1., -1., 1, 50)
+
+plt.plot(num, cost)
